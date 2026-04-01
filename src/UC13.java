@@ -1,44 +1,42 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UC13 {
 
     public static void main(String[] args) {
-
-        // Prepare a collection of bogies
         List<Bogie> bogies = new ArrayList<>();
-        for (int i = 0; i < 100000; i++) {
+
+        // Handle potential InvalidCapacityException when creating bogies
+        try {
             bogies.add(new Bogie("Sleeper", 72));
             bogies.add(new Bogie("AC Chair", 56));
             bogies.add(new Bogie("First Class", 80));
+            bogies.add(new Bogie("Sleeper", 64));
+            bogies.add(new Bogie("AC Chair", 60));
+        } catch (InvalidCapacityException e) {
+            System.out.println("Error creating bogie: " + e.getMessage());
+            return; // Stop program if invalid bogie is added
         }
 
-        // --- Loop-based filtering ---
-        long startLoop = System.nanoTime();
-        List<Bogie> highCapacityLoop = new ArrayList<>();
+        // Loop-based filtering
+        long loopStart = System.nanoTime();
+        List<Bogie> filteredLoop = new ArrayList<>();
         for (Bogie b : bogies) {
             if (b.getCapacity() > 60) {
-                highCapacityLoop.add(b);
+                filteredLoop.add(b);
             }
         }
-        long endLoop = System.nanoTime();
-        long loopTime = endLoop - startLoop;
+        long loopEnd = System.nanoTime();
+        System.out.println("Loop filtered bogies: " + filteredLoop.size());
+        System.out.println("Loop time (ns): " + (loopEnd - loopStart));
 
-        System.out.println("Loop-based filtering: " + highCapacityLoop.size() + " bogies found.");
-        System.out.println("Execution time (ns): " + loopTime);
-
-        // --- Stream-based filtering ---
-        long startStream = System.nanoTime();
-        List<Bogie> highCapacityStream = bogies.stream()
+        // Stream-based filtering
+        long streamStart = System.nanoTime();
+        List<Bogie> filteredStream = bogies.stream()
                 .filter(b -> b.getCapacity() > 60)
                 .collect(Collectors.toList());
-        long endStream = System.nanoTime();
-        long streamTime = endStream - startStream;
-
-        System.out.println("Stream-based filtering: " + highCapacityStream.size() + " bogies found.");
-        System.out.println("Execution time (ns): " + streamTime);
-
-        System.out.println("Results match: " + (highCapacityLoop.size() == highCapacityStream.size()));
+        long streamEnd = System.nanoTime();
+        System.out.println("Stream filtered bogies: " + filteredStream.size());
+        System.out.println("Stream time (ns): " + (streamEnd - streamStart));
     }
 }
