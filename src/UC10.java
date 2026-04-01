@@ -1,13 +1,16 @@
+// src/UC10.java
+import bogie.Bogie;
+import bogie.InvalidCapacityException;
 import java.util.ArrayList;
 import java.util.List;
+import bogie.Bogie;
+import bogie.GoodsBogie;
+import bogie.InvalidCapacityException;
 
 public class UC10 {
-
     public static void main(String[] args) {
-        // List to store bogies
         List<Bogie> bogies = new ArrayList<>();
 
-        // Create bogies safely with try/catch
         try {
             bogies.add(new Bogie("Sleeper", 72));
             bogies.add(new Bogie("AC Chair", 54));
@@ -15,14 +18,13 @@ public class UC10 {
             bogies.add(new Bogie("Sleeper", 72));
             bogies.add(new Bogie("AC Chair", 56));
         } catch (InvalidCapacityException e) {
-            System.out.println("Error creating bogie: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
 
-        // Compute total seats using Stream reduce
         int totalSeats = bogies.stream()
-                .map(b -> b.getCapacity())  // extract capacity
-                .reduce(0, Integer::sum);  // sum all capacities
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
 
-        System.out.println("Total seating capacity of the train: " + totalSeats);
+        System.out.println("Total seating capacity: " + totalSeats);
     }
 }

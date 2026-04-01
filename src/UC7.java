@@ -1,29 +1,28 @@
+import bogie.GoodsBogie;
+import bogie.InvalidCapacityException;
+import bogie.Bogie;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UC7 {
-
     public static void main(String[] args) {
-
-        System.out.println("=== UC7: Sort Passenger Bogies by Capacity ===");
-
-        // Use Bogie class from Bogie.java
         List<Bogie> passengerBogies = new ArrayList<>();
-        passengerBogies.add(new Bogie("Sleeper", 72));
-        passengerBogies.add(new Bogie("AC Chair", 54));
-        passengerBogies.add(new Bogie("First Class", 24));
-        passengerBogies.add(new Bogie("Executive", 80));
 
-        System.out.println("\nPassenger Bogies (Before Sorting):");
-        passengerBogies.forEach(System.out::println);
+        try {
+            passengerBogies.add(new Bogie("Sleeper", 72));
+            passengerBogies.add(new Bogie("AC Chair", 54));
+            passengerBogies.add(new Bogie("First Class", 24));
+            passengerBogies.add(new Bogie("Executive", 80));
+        } catch (InvalidCapacityException e) {
+            System.out.println(e.getMessage());
+        }
 
-        // Sort bogies by capacity descending
-        passengerBogies.sort(Comparator.comparingInt(Bogie::getCapacity).reversed());
+        List<Bogie> filtered = passengerBogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        System.out.println("\nPassenger Bogies (Sorted by Capacity - High to Low):");
-        passengerBogies.forEach(System.out::println);
-
-        System.out.println("\nUC7 execution completed.\n");
+        System.out.println("Bogies with capacity > 60:");
+        filtered.forEach(System.out::println);
     }
 }

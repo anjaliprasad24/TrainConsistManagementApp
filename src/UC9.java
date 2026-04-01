@@ -1,5 +1,8 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import bogie.Bogie;
+import bogie.GoodsBogie;
+import bogie.InvalidCapacityException;
 
 public class UC9 {
 
