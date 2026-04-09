@@ -12,6 +12,14 @@ public class Bogie {
         this.capacity = capacity;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public String getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return type + "(" + capacity + ")";

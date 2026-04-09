@@ -1,15 +1,14 @@
 import java.util.*;
 import java.util.stream.Collectors;
 import bogie.Bogie;
-import bogie.GoodsBogie;
 import bogie.InvalidCapacityException;
 
 public class UC9 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidCapacityException {
+
         System.out.println("=== UC9: Group Bogies by Type ===");
 
-        // Reuse Bogie class from Bogie.java
         List<Bogie> bogies = new ArrayList<>();
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 54));
@@ -20,9 +19,8 @@ public class UC9 {
         System.out.println("\nAll Bogies:");
         bogies.forEach(System.out::println);
 
-        // Group bogies by type (name) using Collectors.groupingBy
         Map<String, List<Bogie>> bogiesByType = bogies.stream()
-                .collect(Collectors.groupingBy(Bogie::getName));
+                .collect(Collectors.groupingBy(Bogie::getType));
 
         System.out.println("\nGrouped Bogies by Type:");
         bogiesByType.forEach((type, list) -> {
@@ -30,10 +28,7 @@ public class UC9 {
             list.forEach(b -> System.out.println("  " + b));
         });
 
-        // Original list remains unchanged
         System.out.println("\nOriginal list remains unchanged:");
         bogies.forEach(System.out::println);
-
-        System.out.println("\nUC9 execution completed.\n");
     }
 }

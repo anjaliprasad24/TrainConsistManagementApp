@@ -42,8 +42,6 @@ public class UC11 {
         } else {
             System.out.println("Invalid Cargo Code format!");
         }
-
-        System.out.println("\nUC11 execution completed.");
         scanner.close();
     }
 }

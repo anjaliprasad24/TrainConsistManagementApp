@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import bogie.Bogie;
+import bogie.InvalidCapacityException;
 
 public class UC8 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidCapacityException {  // ✅ add this
 
         System.out.println("=== UC8: Filter Passenger Bogies Using Streams ===");
 
-        // Reuse Bogie class from Bogie.java
         List<Bogie> passengerBogies = new ArrayList<>();
         passengerBogies.add(new Bogie("Sleeper", 72));
         passengerBogies.add(new Bogie("AC Chair", 54));
@@ -19,7 +19,6 @@ public class UC8 {
         System.out.println("\nAll Passenger Bogies:");
         passengerBogies.forEach(System.out::println);
 
-        // Filter bogies with capacity > 60 using Streams
         List<Bogie> highCapacityBogies = passengerBogies.stream()
                 .filter(b -> b.getCapacity() > 60)
                 .collect(Collectors.toList());
@@ -27,10 +26,7 @@ public class UC8 {
         System.out.println("\nFiltered Passenger Bogies (Capacity > 60):");
         highCapacityBogies.forEach(System.out::println);
 
-        // Original list remains unchanged
         System.out.println("\nOriginal list remains unchanged:");
         passengerBogies.forEach(System.out::println);
-
-        System.out.println("\nUC8 execution completed.\n");
     }
 }

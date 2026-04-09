@@ -12,7 +12,7 @@ public class UC12 {
         goods.add(new GoodsBogie("Cylindrical", "Petroleum"));
 
         boolean safe = goods.stream()
-                .allMatch(g -> !g.type.equals("Cylindrical") || g.cargo.equals("Petroleum"));
+                .allMatch(g -> !g.shape.equals("Cylindrical") || g.cargo.equals("Petroleum"));
 
         System.out.println("Train safety compliance: " + (safe ? "SAFE" : "UNSAFE"));
     }
